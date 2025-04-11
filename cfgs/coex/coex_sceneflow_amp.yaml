@@ -17,7 +17,9 @@ DATA_CONFIG:
             - { NAME: ToTensor }
             - { NAME: NormalizeImage, MEAN: [ 0.485, 0.456, 0.406 ], STD: [ 0.229, 0.224, 0.225 ] }
         EVALUATING:
-            - { NAME: RightTopPad, SIZE: [ 540, 960 ] }
+            - { NAME: RandomScale, SIZE: [ 288, 576 ], MIN_SCALE: 0.0, MAX_SCALE: 0.0, SCALE_PROB: 1.0, STRETCH_PROB: 1.0 }
+            - { NAME: RandomCrop, SIZE: [ 288, 576 ], Y_JITTER: false }
+            # - { NAME: RightTopPad, SIZE: [ 540, 960 ] }
             - { NAME: TransposeImage }
             - { NAME: ToTensor }
             - { NAME: NormalizeImage, MEAN: [ 0.485, 0.456, 0.406 ], STD: [ 0.229, 0.224, 0.225 ] }
@@ -36,7 +38,7 @@ MODEL:
     REGRESSION_TOPK: 2
     FIND_UNUSED_PARAMETERS: true
     CKPT: -1
-    PRETRAINED_MODEL: ''
+    PRETRAINED_MODEL: '/mnt/DL_TOOLS/OpenStereo/pretrained_model/CoExNet_Sceneflow_Amp.pt'
 
 OPTIMIZATION:
     BATCH_SIZE_PER_GPU: 8

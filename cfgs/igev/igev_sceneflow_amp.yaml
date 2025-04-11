@@ -15,7 +15,9 @@ DATA_CONFIG:
             - { NAME: TransposeImage }
             - { NAME: ToTensor }
         EVALUATING:
-            - { NAME: RightTopPad, SIZE: [ 544, 960 ] }
+            - { NAME: RandomScale, SIZE: [ 320, 736 ], MIN_SCALE: 0.0, MAX_SCALE: 0.0, SCALE_PROB: 1.0, STRETCH_PROB: 1.0 }
+            - { NAME: RandomCrop, SIZE: [ 320, 736 ], Y_JITTER: false }
+            # - { NAME: RightTopPad, SIZE: [ 544, 960 ] }
             - { NAME: TransposeImage }
             - { NAME: ToTensor }
 
@@ -32,7 +34,7 @@ MODEL:
     VALID_ITERS: 32
     FIND_UNUSED_PARAMETERS: false
     CKPT: -1
-    PRETRAINED_MODEL: ''
+    PRETRAINED_MODEL: '/mnt/DL_TOOLS/OpenStereo/pretrained_model/IGEV_Sceneflow_Amp.pt'
 
 OPTIMIZATION:
     BATCH_SIZE_PER_GPU: 4
